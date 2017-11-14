@@ -41,3 +41,29 @@ webpack是将一个个文件分拆成一个个模块(module)来进行编译打�
 * style-loader 将css插入到页面的style标签
 * css-loader 是处理css文件中的url()等
 * less-loader 是将less文件编译成css
+
+# postcss解决css兼容问题
+写到这里我们会突然想到一个点，就是css样式的兼容性问题，靠人工去写的话，你心里可能会有一句mmp不值当讲不当讲，哈哈，我们必须使用postcss来解决这个问题。
+
+postcss是目前css兼容性的解决方案，会自动帮我们加入前缀，以使css样式在不同的浏览器能兼容，这里安装使用postcss-loader
+```
+{ test: /\.(less|css)?$/, loader: ["style-loader", "css-loader", "less-loader", "postcss-loader"]}
+```
+postcss-loader要写在最后(其实只要放在css-loader之后就可以)，写到这你以为就可以了吗？只能说 too young，postcss解决兼容性问题主要靠的其实是它的插件autoprefixer，我们还需要在根目录写一个postcss.config.js的配置文件，如下
+```
+module.exports = {
+    plugins: [
+        require('autoprefixer')
+    ]
+};
+```
+写到这，我们就不用再担心css兼容性问题了，就想使用babel文件一样，这个文件会自动解析，我们不需要管它。
+# svg图片的使用
+
+我们在开发时，往往会遇到一些图标图片在不同情况下会失真，以及资源过多，我们需要减小图标类图片的大小，这时我们就需要引入svg，国内可能都会去使用阿里的iconfont库，从而引入svg图标，解决上面的问题
+
+我们打开下载的素材文件夹，发现里面有一些.woff、.svg、.eot的文件，我们要想使用svg的图标还必须依赖这些文件，这时webpack不支持这些文件，我们需要引入新的loader
+```
+{ test: /\.(woff|svg|eot|ttf)?$/, loader: "url-loader" }下面我们就能愉快的使用svg图标了，不存在失真的情况，同时会很小
+```
+

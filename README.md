@@ -64,6 +64,7 @@ module.exports = {
 
 我们打开下载的素材文件夹，发现里面有一些.woff、.svg、.eot的文件，我们要想使用svg的图标还必须依赖这些文件，这时webpack不支持这些文件，我们需要引入新的loader
 ```
-{ test: /\.(woff|svg|eot|ttf)?$/, loader: "url-loader" }下面我们就能愉快的使用svg图标了，不存在失真的情况，同时会很小
+{ test: /\.(woff|svg|eot|ttf)?$/, loader: "url-loader" }
 ```
+下面我们就能愉快的使用svg图标了，不存在失真的情况，同时会很小
 
